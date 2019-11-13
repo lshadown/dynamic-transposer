@@ -3,11 +3,6 @@ import sys
 
 from optimization import Optimization
 
-pattern_for_iter = "[a-zA-Z]={1}[a-zA-Z1-9/+\-*]+;{1}"
-pattern_matrix = "[A-Z]\[{1}[a-z+\-*1-9]+\]{1}\[{1}[a-z+\-*1-9]+\]{1}"
-pattern_iterator = "[a-zA-Z]+[+\-/]{1}[a-zA-Z1-9]"
-pattern_special_operator = "[+\-*/]{1}"
-
 
 def main(argv):
     input_file = ''
