@@ -1,21 +1,30 @@
-"""HELLO CLI
-Usage:
-    hello.py
-    hello.py <name>
-    hello.py -h|--help
-    hello.py -v|--version
-Options:
-    <name>  Optional name argument.
-    -h --help  Show this screen.
-    -v --version  Show version.
-"""
+
 import re
-from docopt import docopt
+import sys, getopt
 
 pattern_for_iter = "[a-zA-Z]={1}[a-zA-Z1-9/+\-*]+;{1}"
 pattern_matrix = "[A-Z]\[{1}[a-z+\-*1-9]+\]{1}\[{1}[a-z+\-*1-9]+\]{1}"
 pattern_iterator = "[a-zA-Z]+[+\-/]{1}[a-zA-Z1-9]"
 pattern_special_operator = "[+\-*/]{1}"
+
+def main(argv):
+   inputfile = ''
+   outputfile = ''
+   try:
+      opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
+   except getopt.GetoptError:
+      print('app.py -i <inputfile> -o <outputfile>')
+      sys.exit(2)
+   for opt, arg in opts:
+      if opt == '-h':
+         print('app.py -i <inputfile> -o <outputfile>')
+         sys.exit()
+      elif opt in ("-i", "--ifile"):
+         inputfile = arg
+      elif opt in ("-o", "--ofile"):
+         outputfile = arg
+
+   read_file(inputfile, outputfile)
 
 
 def get_special_line(line, tran_matrix, name_matrix):
@@ -34,10 +43,10 @@ def save_to_file(line):
         fobj.write(line)
 
 
-def read_file(file_path):
+def read_file(in_file_path, out_file_path):
     dic_iter = {}
     iter = 1
-    with open(file_path) as fp:
+    with open(in_file_path) as fp:
         line = fp.readline()
         line_number = 1
         special_line = None
@@ -99,8 +108,4 @@ def read_file(file_path):
 
 
 if __name__ == '__main__':
-    arguments = docopt(__doc__, version='DEMO 1.0')
-    if arguments['<name>']:
-        read_file(arguments['<name>'])
-    else:
-        print(arguments)
+    main(sys.argv[1:])
