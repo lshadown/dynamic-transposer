@@ -9,7 +9,7 @@
 You can download zip package or clone :
 
 ```
-https://github.com/lshadown/foroptimization.git
+https://github.com/lshadown/dynamic-transposer.git
 ```
 
 ## Running application
