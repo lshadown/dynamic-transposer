@@ -70,9 +70,20 @@ class Optimization:
                 print(result_matrix)
         return ProcessLine(result_line, result_special_line)
 
+    def _check_spec_dic(self, line, spec_dic):
+        for spec_line in spec_dic:
+            if self._compare_spec_line_with_line(spec_line, line):
+                self._save_to_file(self._get_special_line(line, spec_line + "T", spec_line))
+                spec_dic.remove(spec_line)
+
+    @staticmethod
+    def _compare_spec_line_with_line(spec_line, line):
+        return line.split("=")[0].split("[")[0].replace(" ", "").replace("\t", "") == spec_line
+
     def _read_file(self):
         dic_iter = {}
         iter = 1
+        spec_dic = []
         with open(self._input_file_path) as fp:
             line = fp.readline()
             line_number = 1
@@ -94,8 +105,15 @@ class Optimization:
                             special_line = result.special_line
                 self._save_to_file(new_line)
                 if special_line is not None:
-                    if line.split("=")[0].split("[")[0].replace(" ", "").replace("\t", "") == special_line:
+                    if self._compare_spec_line_with_line(special_line, line):
                         self._save_to_file(self._get_special_line(line, special_line + "T", special_line))
                         special_line = None
+                    else:
+                        if special_line in spec_dic:
+                            special_line = None
+                        else:
+                            spec_dic.append(special_line)
+                            special_line = None
+                self._check_spec_dic(line, spec_dic)
                 line = fp.readline()
                 line_number += 1
