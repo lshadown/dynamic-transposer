@@ -94,7 +94,7 @@ class Optimization:
                             special_line = result.special_line
                 self._save_to_file(new_line)
                 if special_line is not None:
-                    if line.split("=")[0].split("[")[0].replace(" ", "") == special_line:
+                    if line.split("=")[0].split("[")[0].replace(" ", "").replace("\t", "") == special_line:
                         self._save_to_file(self._get_special_line(line, special_line + "T", special_line))
                         special_line = None
                 line = fp.readline()
