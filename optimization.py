@@ -4,7 +4,7 @@ from process_line import ProcessLine
 
 
 class Optimization:
-    _pattern_for_iter = "[a-zA-Z]={1}[a-zA-Z1-9/+\-*]+;{1}"
+    _pattern_for_iter = "[a-zA-Z]={1}[a-zA-Z0-9/+\-*]+;{1}"
     _pattern_matrix = "[A-Z]\[{1}[a-z+\-*1-9]+\]{1}\[{1}[a-z+\-*1-9]+\]{1}"
     _pattern_iterator = "[a-zA-Z]+[+\-/]{1}[a-zA-Z1-9]"
     _pattern_special_operator = "[+\-*/]{1}"
